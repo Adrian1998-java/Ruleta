@@ -9,8 +9,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+
 
 import java.io.IOException;
 import java.net.URL;
@@ -18,22 +21,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import Model.name;
-
 
 public class MainContoller implements Initializable {
 
 	//listView
-	
-	private ListView<name> listNames = new ListView<name>();
-	private List<name> listOfNames = new ArrayList<name>();
-	private ObjectProperty<name> name=new SimpleObjectProperty<>();
+	private List<String> listOfNames = new ArrayList<String>();
 	
 	@FXML
     private BorderPane view;
 
     @FXML
-    private ListView<name> listView;
+    private ListView<String> listView;
 
     @FXML
     private TextField optionView;
@@ -68,9 +66,19 @@ public class MainContoller implements Initializable {
 	
 	@FXML
     void onAniadir(ActionEvent event) {
-		listOfNames.add(new name(optionView.getText()));
-		listNames.getItems().add(new name(optionView.getText()));
+		listOfNames.add(optionView.getText());
+		listView.getItems().add(optionView.getText());
+		optionView.clear();
     }
+	
+    @FXML
+    void onEnterInputPressed(KeyEvent event) {
+    	if(event.getCode().equals(KeyCode.ENTER))
+    	{
+    		onAniadir(null);   	
+    	}
+    }
+    
 
     @FXML
     void onBorrar(ActionEvent event) {
@@ -80,12 +88,10 @@ public class MainContoller implements Initializable {
 
     @FXML
     void onGanador(ActionEvent event) {
-    	int i = 0;
-    	while(i <= listOfNames.size())
-    		i++;
-    	int ramdomInteger = 0 + (int)(Math.random() * i-1);
+	
+    	int ramdomInteger = 0 + (int)(Math.random() * listOfNames.size());
     	
-    	resultText.setText(listOfNames.get(ramdomInteger).getNameTyped());
+    	resultText.setText(listOfNames.get(ramdomInteger));
     }
 
 
