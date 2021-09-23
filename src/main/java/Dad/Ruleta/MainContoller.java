@@ -73,7 +73,8 @@ public class MainContoller implements Initializable {
 	
     @FXML
     void onEnterInputPressed(KeyEvent event) {
-    	if(event.getCode().equals(KeyCode.ENTER))
+    	KeyCode code = event.getCode();
+    	if(code == KeyCode.ENTER)
     	{
     		onAniadir(null);   	
     	}
